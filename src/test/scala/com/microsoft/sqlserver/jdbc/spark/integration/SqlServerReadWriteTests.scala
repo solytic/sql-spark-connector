@@ -23,7 +23,7 @@ class SqlServerReadWriteTests extends SparkFunSuite {
     import spark.implicits._
 
     // create the database and tables for testing
-    ensureTestSetup()
+    val dbName = ensureTestSetup()
 
     // setup the input data
     val inputData = Seq(
@@ -35,7 +35,7 @@ class SqlServerReadWriteTests extends SparkFunSuite {
     // write
     dataToWrite.write
       .format("com.microsoft.sqlserver.jdbc.spark")
-      .options(Map("url" -> url, "dbtable" -> dbTable))
+      .options(Map("url" -> s"$url;database=$dbName", "dbtable" -> dbTable))
       .option("dbtable", dbTable)
       .mode(SaveMode.Overwrite)
       .save()
@@ -43,7 +43,7 @@ class SqlServerReadWriteTests extends SparkFunSuite {
     // read
     val outputData = spark.read
       .format("com.microsoft.sqlserver.jdbc.spark")
-      .options(Map("url" -> url, "query" -> s"SELECT * FROM $dbTable"))
+      .options(Map("url" -> s"$url;database=$dbName", "query" -> s"SELECT * FROM $dbTable"))
       .load()
       .orderBy("id")
       .as[(Int, String)]
@@ -61,7 +61,7 @@ class SqlServerReadWriteTests extends SparkFunSuite {
     spark
   }
 
-  private def ensureTestSetup(): Unit = {
+  private def ensureTestSetup(): String = {
     val dbName = s"testing_${UUID.randomUUID().toString.replace("-", "_")}"
 
     val jdbcOptions = new SQLServerBulkJdbcOptions(Map("url" -> url, "dbtable" -> dbTable))
@@ -77,5 +77,7 @@ class SqlServerReadWriteTests extends SparkFunSuite {
 
     statement.closeOnCompletion()
     jdbcConnection.close()
+
+    dbName
   }
 }
