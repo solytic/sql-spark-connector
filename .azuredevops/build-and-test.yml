@@ -17,7 +17,7 @@ steps:
     dockerComposeFile: docker-compose.yml
     projectName: sql-spark-connector
     qualifyImageNames: true
-    dockerComposeCommand: up
+    dockerComposeCommand: up -d
 
 - task: Maven@3
   displayName: Maven build and test
