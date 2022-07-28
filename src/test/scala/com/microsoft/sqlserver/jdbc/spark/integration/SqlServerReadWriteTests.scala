@@ -14,7 +14,7 @@ import java.util.UUID
  * Run `docker compose up` in the root directory of the project for this test to succeed.
  */
 class SqlServerReadWriteTests extends SparkFunSuite {
-  private val url = "jdbc:sqlserver://localhost:1433;database=master;encrypt=true;trustServerCertificate=true;loginTimeout=30;user=sa;password=secure_password_123;"
+  private val url = "jdbc:sqlserver://localhost:1433;user=sa;password=secure_password_123;"
   private val dbTable = "model.DataTable"
 
   private lazy val spark = getSparkSession
