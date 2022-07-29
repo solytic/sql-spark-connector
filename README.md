@@ -24,8 +24,8 @@ the repository to your `pom.xml` or your `build.sbt`:
 ```xml
 <!-- Add to the pom.xml -->
 <repository>
-  <id>feed</id>
-  <url>https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/feed/maven/v1</url>
+  <id>solytic-sql-spark-connector</id>
+  <url>https://maven.pkg.github.com/solytic/sql-spark-connector</url>
   <releases>
     <enabled>true</enabled>
   </releases>
@@ -37,7 +37,7 @@ the repository to your `pom.xml` or your `build.sbt`:
 
 ```scala
 // add to the build.sbt
-resolvers += "Solytic OpenSource Feed" at "https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/feed/maven/v1"
+resolvers += "Solytic SQL Spark Connector" at "https://maven.pkg.github.com/solytic/sql-spark-connector"
 ```
 
 These are the currently available versions of the connector.
