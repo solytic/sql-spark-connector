@@ -4,20 +4,41 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- master
+  - master
 
-pool:
-  vmImage: ubuntu-latest
+stages:
+  - stage: BuildAndTest
+    jobs:
+      - job: BuildAndTestWithDocker
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: DockerCompose@0
+            displayName: Docker compose up
+            inputs:
+              action: Run a Docker Compose command
+              dockerComposeFile: docker-compose.yml
+              projectName: sql-spark-connector
+              qualifyImageNames: true
+              dockerComposeCommand: up -d
 
-steps:
-- task: Maven@3
-  displayName: Maven Build and Test
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'test'
+          - task: Maven@3
+            displayName: Maven build and test
+            inputs:
+              mavenPomFile: 'pom.xml'
+              mavenOptions: '-Xmx3072m'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.8'
+              jdkArchitectureOption: 'x64'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              goals: 'test'
+
+          - task: DockerCompose@0
+            displayName: Docker compose down
+            inputs:
+              action: Run a Docker Compose command
+              dockerComposeFile: docker-compose.yml
+              projectName: sql-spark-connector
+              qualifyImageNames: true
+              dockerComposeCommand: down
