@@ -18,26 +18,45 @@ In this repository we are planning to support builds for Spark 3.2.0 and higher.
 versions.
 
 The Microsoft builds can be found [here](https://search.maven.org/search?q=spark-mssql-connector), the Solytic builds
-can be found [here](https://dev.azure.com/solytic/OpenSource/_artifacts/feed/feed). To connect to the Solytic feed, add
-the repository to your `pom.xml` or your `build.sbt`:
+can be found [here](https://dev.azure.com/solytic/OpenSource/_artifacts/feed/releases/).
+
+## Get the connector
+
+First, connect to the Solyic feed. To do this, add the repository to your `pom.xml` or your `build.sbt`:
 
 ```xml
 <!-- Add to the pom.xml -->
 <repository>
-  <id>solytic-sql-spark-connector</id>
-  <url>https://maven.pkg.github.com/solytic/sql-spark-connector</url>
-  <releases>
-    <enabled>true</enabled>
-  </releases>
-  <snapshots>
-    <enabled>true</enabled>
-  </snapshots>
+   <id>solytic-sql-spark-connector</id>
+   <url>https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1</url>
+   <releases>
+      <enabled>true</enabled>
+   </releases>
+   <snapshots>
+      <enabled>true</enabled>
+   </snapshots>
 </repository>
 ```
 
 ```scala
 // add to the build.sbt
-resolvers += "Solytic SQL Spark Connector" at "https://maven.pkg.github.com/solytic/sql-spark-connector"
+resolvers += "Solytic SQL Spark Connector" at "https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1"
+```
+
+Then, to load the dependency, add the following lines to your `pom.xml` or your `build.sbt`:
+
+```xml
+<!-- Add to the pom.xml -->
+<dependency>
+    <groupId>com.solytic</groupId>
+    <artifactId>spark-mssql-connector_2.12</artifactId>
+    <version>...</version>
+</dependency>
+```
+
+```scala
+// add to the build.sbt
+libraryDependencies += "com.solytic" %% "spark-mssql-connector" % "..."
 ```
 
 These are the currently available versions of the connector.
@@ -48,15 +67,14 @@ These are the currently available versions of the connector.
 | Spark 3.0.x compatible | `com.microsoft.azure:spark-mssql-connector_2.12:1.1.0` | 2.12          | [Microsoft](https://github.com/microsoft/sql-spark-connector) |
 | Spark 3.1.x compatible | `com.microsoft.azure:spark-mssql-connector_2.12:1.2.0` | 2.12          | [Microsoft](https://github.com/microsoft/sql-spark-connector) |
 | Spark 3.1.x compatible | `com.solytic:spark-mssql-connector_2.12:1.2.1`         | 2.12          | [Solytic](https://github.com/solytic/sql-spark-connector)     |
-| Spark 3.3.x compatible | `com.microsoft.azure:spark-mssql-connector_2.12:1.4.0` | 2.12          | [Solytic](https://github.com/solytic/sql-spark-connector)     |
+| Spark 3.2.x compatible | `com.solytic:spark-mssql-connector_2.12:1.3.0`         | 2.12          | [Solytic](https://github.com/solytic/sql-spark-connector)     |
 
 ## Current Releases
 
 * The latest Spark 2.4.x compatible connector is on v1.0.2, available through Microsoft
 * The latest Spark 3.0.x compatible connector is on v1.1.0, available through Microsoft
 * The latest Spark 3.1.x compatible connector is on v1.2.x, available through Microsoft or Solytic
-
-For main changes from previous releases and known issues please refer to [CHANGELIST](docs/CHANGELIST.md)
+* The latest Spark 3.2.x compatible connector is on v1.3.x, available through Microsoft or Solytic
 
 ## Supported Features
 
@@ -66,13 +84,13 @@ For main changes from previous releases and known issues please refer to [CHANGE
 * Support for write to SQL Server Single instance and Data Pool in SQL Server Big Data Clusters
 * Reliable connector support for Sql Server Single Instance
 
-| Component                            | Versions Supported                |
-|--------------------------------------|-----------------------------------|
-| Apache Spark                         | 2.4.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x |
-| Scala                                | 2.11, 2.12                        |
-| Microsoft JDBC Driver for SQL Server | 8.4.1                             |
-| Microsoft SQL Server                 | SQL Server 2008 or later          |
-| Azure SQL Databases                  | Supported                         |
+| Component                            | Versions Supported         |
+|--------------------------------------|----------------------------|
+| Apache Spark                         | 2.4.x, 3.0.x, 3.1.x, 3.2.x |
+| Scala                                | 2.11, 2.12                 |
+| Microsoft JDBC Driver for SQL Server | 8.4.1                      |
+| Microsoft SQL Server                 | SQL Server 2008 or later   |
+| Azure SQL Databases                  | Supported                  |
 
 **Note**: Azure Synapse (Azure SQL DW) use is not tested with this connector. While it may work, there may be
 unintended consequences.
@@ -323,18 +341,13 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 * Install Java 8 (e.g. with [sdkman](https://sdkman.io/): `sdk install java 8.0.342-zulu` and `sdk use java 8.0.342-zulu`)
 * Install Scala 2.12, SBT, Maven (e.g. on Mac with Homebrew `brew install maven scala@2.12 sbt`)
 
-## Running the tests
-
-1. Some tests require the docker compose setup to work, so first run `docker compose up` in the root directory of the project
-2. Then, run `mvn test` in the root directory to execute all the tests
-
 ## Releasing a new version
 
 ### Prerequisites
 
 * Make sure you have `gpg` installed (e.g. on Mac with Homebrew `brew install gpg`)
 * Install the Solytic GPG key
-* Connect to the artifact feed (see [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry))
+* Connect to the artifact feed (see [here](https://dev.azure.com/solytic/OpenSource/_artifacts/feed/releases/connect/maven))
 
 ### Steps to create a release
 
