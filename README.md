@@ -75,8 +75,8 @@ These are the currently available versions of the connector.
 * The latest Spark 2.4.x compatible connector is on v1.0.2, available through Microsoft
 * The latest Spark 3.0.x compatible connector is on v1.1.0, available through Microsoft
 * The latest Spark 3.1.x compatible connector is on v1.2.x, available through Microsoft or Solytic
-* The latest Spark 3.2.x compatible connector is on v1.3.x, available through Microsoft or Solytic
-* The latest Spark 3.3.x compatible connector is on v1.4.x, available through Microsoft or Solytic
+* The latest Spark 3.2.x compatible connector is on v1.3.x, available through Solytic
+* The latest Spark 3.3.x compatible connector is on v1.4.x, available through Solytic
 
 ## Supported Features
 
