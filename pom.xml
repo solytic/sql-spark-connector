@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.solytic</groupId>
-    <artifactId>spark-mssql-connector</artifactId>
+    <artifactId>spark-mssql-connector_${scala.binary.version}</artifactId>
     <packaging>jar</packaging>
     <version>1.4.0-SNAPSHOT</version>
     <name>${project.groupId}:${project.artifactId}</name>
@@ -75,12 +75,12 @@
   </scm>
     <distributionManagement>
         <snapshotRepository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/solytic/sql-spark-connector</url>
+            <id>devops-snapshots</id>
+            <url>https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/snapshots/maven/v1</url>
         </snapshotRepository>
         <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/solytic/sql-spark-connector</url>
+            <id>devops-releases</id>
+            <url>https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1</url>
         </repository>
     </distributionManagement>
     <build>
