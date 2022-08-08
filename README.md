@@ -18,7 +18,7 @@ In this repository we are planning to support builds for Spark 3.2.0 and higher.
 versions.
 
 The Microsoft builds can be found [here](https://search.maven.org/search?q=spark-mssql-connector), the Solytic builds
-can be found [here](https://dev.azure.com/solytic/OpenSource/_artifacts/feed/feed). To connect to the Solytic feed, add
+can be found [here](https://dev.azure.com/solytic/OpenSource/_artifacts/feed/releases/). To connect to the Solytic feed, add
 the repository to your `pom.xml` or your `build.sbt`:
 
 ```xml
@@ -34,7 +34,7 @@ the repository to your `pom.xml` or your `build.sbt`:
 
 ```scala
 // add to the build.sbt
-resolvers += "Solytic OpenSource Feed" at "https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1"
+resolvers += "Solytic SQL Spark Connector" at "https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1"
 ```
 
 These are the currently available versions of the connector.
