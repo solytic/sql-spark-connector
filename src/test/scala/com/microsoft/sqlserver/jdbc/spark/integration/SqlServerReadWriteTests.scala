@@ -1,8 +1,8 @@
 package com.microsoft.sqlserver.jdbc.spark.integration
 
 import com.microsoft.sqlserver.jdbc.spark.SQLServerBulkJdbcOptions
+import com.microsoft.sqlserver.jdbc.spark.utils.JdbcUtils
 import org.apache.spark.SparkFunSuite
-import org.apache.spark.sql.execution.datasources.jdbc.JdbcUtils
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 import java.util.UUID
@@ -66,7 +66,7 @@ class SqlServerReadWriteTests extends SparkFunSuite {
 
     val jdbcOptions = new SQLServerBulkJdbcOptions(Map("url" -> url, "dbtable" -> dbTable))
 
-    val jdbcConnection = JdbcUtils.createConnectionFactory(jdbcOptions)()
+    val jdbcConnection = JdbcUtils.createConnection(jdbcOptions)
     val statement = jdbcConnection.createStatement()
 
     statement.executeUpdate(s"CREATE DATABASE $dbName")
