@@ -68,6 +68,7 @@ These are the currently available versions of the connector.
 | Spark 3.1.x compatible | `com.microsoft.azure:spark-mssql-connector_2.12:1.2.0` | 2.12          | [Microsoft](https://github.com/microsoft/sql-spark-connector) |
 | Spark 3.1.x compatible | `com.solytic:spark-mssql-connector_2.12:1.2.1`         | 2.12          | [Solytic](https://github.com/solytic/sql-spark-connector)     |
 | Spark 3.2.x compatible | `com.solytic:spark-mssql-connector_2.12:1.3.0`         | 2.12          | [Solytic](https://github.com/solytic/sql-spark-connector)     |
+| Spark 3.3.x compatible | `com.solytic:spark-mssql-connector_2.12:1.4.0`         | 2.12          | [Solytic](https://github.com/solytic/sql-spark-connector)     |
 
 ## Current Releases
 
@@ -75,6 +76,7 @@ These are the currently available versions of the connector.
 * The latest Spark 3.0.x compatible connector is on v1.1.0, available through Microsoft
 * The latest Spark 3.1.x compatible connector is on v1.2.x, available through Microsoft or Solytic
 * The latest Spark 3.2.x compatible connector is on v1.3.x, available through Microsoft or Solytic
+* The latest Spark 3.3.x compatible connector is on v1.4.x, available through Microsoft or Solytic
 
 ## Supported Features
 
@@ -84,13 +86,13 @@ These are the currently available versions of the connector.
 * Support for write to SQL Server Single instance and Data Pool in SQL Server Big Data Clusters
 * Reliable connector support for Sql Server Single Instance
 
-| Component                            | Versions Supported         |
-|--------------------------------------|----------------------------|
-| Apache Spark                         | 2.4.x, 3.0.x, 3.1.x, 3.2.x |
-| Scala                                | 2.11, 2.12                 |
-| Microsoft JDBC Driver for SQL Server | 8.4.1                      |
-| Microsoft SQL Server                 | SQL Server 2008 or later   |
-| Azure SQL Databases                  | Supported                  |
+| Component                            | Versions Supported                |
+|--------------------------------------|-----------------------------------|
+| Apache Spark                         | 2.4.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x |
+| Scala                                | 2.11, 2.12                        |
+| Microsoft JDBC Driver for SQL Server | 8.4.1                             |
+| Microsoft SQL Server                 | SQL Server 2008 or later          |
+| Azure SQL Databases                  | Supported                         |
 
 **Note**: Azure Synapse (Azure SQL DW) use is not tested with this connector. While it may work, there may be
 unintended consequences.
@@ -351,14 +353,17 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ### Steps to create a release
 
-1. Make sure all your local changes are committed 
-2. Make sure that the version number in the pom.xml ends with `-SNAPSHOT`, so e.g. `1.2.0-SNAPSHOT` - the version without 
+1. Checkout a new branch, e.g.: `git checkout -b release-v-1-4-0`
+2. Make sure all your local changes are committed
+3. Make sure that the version number in the pom.xml ends with `-SNAPSHOT`, so e.g. `1.2.0-SNAPSHOT` - the version without 
    SNAPSHOT is the one that is going to be published, so `1.2.0` in this case
-3. Since the tests will be executed during the release, run `docker compose up -d` to start the Docker setup
-4. Run `mvn release:clean`
-5. Run `mvn release:prepare` to prepare the release, which will increment the version, create a tag in Git, etc.
+4. Since the tests will be executed during the release, run `docker compose up -d` to start the Docker setup
+5. Run `mvn release:clean`
+6. Run `mvn release:prepare` to prepare the release, which will increment the version, create a tag in Git, etc.
    * **Note**: on Mac, you need to run `GPG_TTY=$(tty) mvn release:prepare`, see [here](https://stackoverflow.com/questions/57591432/gpg-signing-failed-inappropriate-ioctl-for-device-on-macos-with-maven)
    * This will ask you for the version number to be published, the new version, etc.
    * It will also run the tests
    * Run `mvn release:perform` to create the release
-6. Create a release on GitHub and add the release notes
+7. Update the README: add the new version to the table
+8. Create a PR on GitHub and have it reviewed
+9. After the PR has been merged, create a release on GitHub and add the release notes
