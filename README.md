@@ -27,11 +27,14 @@ First, connect to the Solyic feed. To do this, add the repository to your `pom.x
 ```xml
 <!-- Add to the pom.xml -->
 <repository>
-  <id>solytic-sql-connector</id>
-  <url>https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1</url>
-  <releases>
-    <enabled>true</enabled>
-  </releases>
+   <id>solytic-sql-connector</id>
+   <url>https://pkgs.dev.azure.com/solytic/OpenSource/_packaging/releases/maven/v1</url>
+   <releases>
+      <enabled>true</enabled>
+   </releases>
+   <snapshots>
+      <enabled>true</enabled>
+   </snapshots>
 </repository>
 ```
 
